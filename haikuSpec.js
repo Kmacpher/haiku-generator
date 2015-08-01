@@ -33,6 +33,12 @@ describe('parsing the lines from the dictionary file', function() {
 		expect(parseDict(lines)).toEqual({'6': ['AGRICULTURALLY', 'AGRICULTURALIST'],
 										'2': ['ZUBER']});
 	});
+	it('ignores the words that have (num) at the end', function() {
+		var lines = ['HELLOTHERE(1)  AE2 G R IH0'];
+		var lines2 = ['HELLOTHERE(1)  AE2 G R IH0', 'AGRICULTURALIST  AE2 G R AH0 K AH1 L CH ER0 AH0 L AH0 S T'];
+		expect(parseDict(lines)).toEqual({});
+		expect(parseDict(lines2)).toEqual({'6': ['AGRICULTURALIST']});
+	});
 
 });
 
@@ -45,7 +51,6 @@ describe("randomWord returns a word from an array of words", function() {
 	it("it\'s possible for each index to be used", function() {
 		var wordArray = ['hello', 'how', 'are', 'you'];
 		expect(randomWordTest(wordArray)).toEqual(true);
-		
 	});
 
 });

@@ -9,6 +9,9 @@ fs.readFile('cmudict.txt', function(err, data) {
   var lines = data.toString().split("\n");
   dictObj = parseDict(lines);
   
+  console.log(randomWord(dictObj['5']));
+  console.log(randomWord(dictObj['7']));
+  console.log(randomWord(dictObj['5']));
 
   
 });
@@ -27,6 +30,7 @@ function parseDict(lines) {
 		if(line) {
 			line_split = line.split("  ");
 			var word = line_split[0];
+			if (/\(\d\)/.test(word)) return;
 			var syllables = line_split[1].split(" ");
 			var count = countSyllables(syllables);
 
