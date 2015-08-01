@@ -7,13 +7,9 @@ fs.readFile('cmudict.txt', function(err, data) {
     return console.log(err);
   }
   var lines = data.toString().split("\n");
-  dictObj = parseDict(lines);
-  
-  console.log(randomWord(dictObj['5']));
-  console.log(randomWord(dictObj['7']));
-  console.log(randomWord(dictObj['5']));
 
-  
+  console.log(makeHaiku(lines));
+
 });
 
 function parseDict(lines) {
@@ -44,8 +40,6 @@ function parseDict(lines) {
 		//if not, add that syll property and assign to it an array     
 	});
 	return dictObj;
-	
-
 }
 
 
@@ -77,4 +71,44 @@ function randomWordTest(wordArray) {
 	});
 	return true;
 }
+
+function randomPatternGenerator() {
+	var sylls = [5,7,5]; //default haiku pattern
+	var pattern = [[],[],[]];
+
+	for(var i=0; i<3; i++)  {
+		var num = sylls[i];
+		while(num>0) {
+			var random = Math.ceil(Math.random()*num);
+			pattern[i].push(random);
+			num -= random;
+		}
+	}
+	return pattern;
+}
+
+function makeHaiku(lines) {
+	dictObj = parseDict(lines);
+  
+	var haikuPattern = randomPatternGenerator();
+
+	var haiku = "";
+	haikuPattern.forEach(function(line) {
+		line.forEach(function(syl) {
+			haiku += randomWord(dictObj[syl])+" ";
+		});
+
+	haiku += '\n';
+
+	});
+
+	return haiku;
+
+}
+
+function type(input) {
+	return Object.prototype.toString.call(input).slice(8, -1);
+}
+
+
 

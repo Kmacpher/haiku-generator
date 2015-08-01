@@ -55,5 +55,25 @@ describe("randomWord returns a word from an array of words", function() {
 
 });
 
+describe("random pattern generator", function() {
+
+	it('returns an array of 3 arrays', function() {
+		expect(type(randomPatternGenerator())).toEqual('Array');
+		for(var x=0; x<3; x++) {
+			expect(type(randomPatternGenerator()[x])).toEqual('Array');
+		}
+	});
+
+	it("returns the proper number of syllables in each line", function() {
+		var pattern = randomPatternGenerator();
+		var sum = function(a, b) {return a+b;};
+		var expect1 = 5, expect2 = 7, expect3 = 5;
+		var sum1 = pattern[0].reduce(sum), sum2 = pattern[1].reduce(sum), sum3 = pattern[2].reduce(sum);
+		expect(sum1).toEqual(expect1);
+		expect(sum2).toEqual(expect2);
+		expect(sum3).toEqual(expect3);
+	});
+});
+
 
 
