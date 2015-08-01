@@ -7,8 +7,8 @@ fs.readFile('cmudict.txt', function(err, data) {
     return console.log(err);
   }
   var lines = data.toString().split("\n");
-  sylObj = parseDict(lines);
-  console.log(sylObj);
+  dictObj = parseDict(lines);
+  
 
   
 });
@@ -52,3 +52,25 @@ function countSyllables(syllables) {
 	});
 	return count;
 }
+
+function randomWord(wordArray) {
+	if(wordArray.length>0) {
+		var index = Math.floor(Math.random()*wordArray.length);
+		return wordArray[index];
+	}
+	throw new Error('no words in this array');
+}
+
+function randomWordTest(wordArray) {
+	//Goes through a (short) array and keeps calling until 
+	//every word has been reached randomly at least once
+	var wordCalled;
+	wordArray.forEach(function(word) {
+		wordWaiting = true;
+		while(wordWaiting) {
+			if(randomWord(wordArray)===word) wordWaiting = false;
+		}
+	});
+	return true;
+}
+

@@ -28,6 +28,27 @@ describe('parsing the lines from the dictionary file', function() {
 		expect(parseDict(lines)).toEqual({'6': ['AGRICULTURALLY', 'AGRICULTURALIST']});
 	});
 
-
+	it('makes and array of more than word at more than one syllable count', function() {
+		var lines = ['AGRICULTURALLY  AE2 G R IH0 K AH1 L CH ER0 AH0 L IY0', 'AGRICULTURALIST  AE2 G R AH0 K AH1 L CH ER0 AH0 L AH0 S T', 'ZUBER  Z UW1 B ER0'];
+		expect(parseDict(lines)).toEqual({'6': ['AGRICULTURALLY', 'AGRICULTURALIST'],
+										'2': ['ZUBER']});
+	});
 
 });
+
+describe("randomWord returns a word from an array of words", function() {
+	it("returns a string", function() {
+		var wordArray = ['hello', 'how', 'are', 'you'];
+		expect(typeof randomWord(wordArray)).toEqual("string");
+	});
+
+	it("it\'s possible for each index to be used", function() {
+		var wordArray = ['hello', 'how', 'are', 'you'];
+		expect(randomWordTest(wordArray)).toEqual(true);
+		
+	});
+
+});
+
+
+
