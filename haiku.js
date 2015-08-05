@@ -2,15 +2,20 @@
 var fs = require("fs");
 // open the cmu dictionary file for "reading" (the little r)
 // cmudict_file = File.open('cmudict.txt', 'r')
-fs.readFile('cmudict.txt', function(err, data) {
-  if(err) {
-    return console.log(err);
-  }
-  var lines = data.toString().split("\n");
+runDictHaiku();
 
-  console.log(makeHaiku(lines));
+function runDictHaiku() {
+  fs.readFile('cmudict.txt', function(err, data) {
+    if(err) {
+      return console.log(err);
+    }
+    var lines = data.toString().split("\n");
+
+    console.log(makeHaiku(lines));
 
 });
+
+}
 
 function parseDict(lines) {
 	/*I want an object with each syllable count, and at that count, an array of 
