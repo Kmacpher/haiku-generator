@@ -2,7 +2,8 @@
 var fs = require("fs");
 // open the cmu dictionary file for "reading" (the little r)
 // cmudict_file = File.open('cmudict.txt', 'r')
-runDictHaiku();
+//runDictHaiku();
+runTextHaiku('./Dorian-Grey.txt');
 
 function runDictHaiku() {
   fs.readFile('cmudict.txt', function(err, data) {
@@ -15,6 +16,18 @@ function runDictHaiku() {
 
 });
 
+}
+
+function runTextHaiku(file) {
+  fs.readFile(file, function(err, data) {
+	if(err) {
+		return console.error(err.message);
+	}
+	var words = data.toString().match(/(\b\w+\b)/g);
+	var startIndex = randomWord(words, true);
+	var pattern = randomPatternGenerator();
+	console.log(pattern);
+  });
 }
 
 function parseDict(lines) {
@@ -56,10 +69,11 @@ function countSyllables(syllables) {
 	return count;
 }
 
-function randomWord(wordArray) {
+function randomWord(wordArray, giveIndex) {
 	if(wordArray.length>0) {
 		var index = Math.floor(Math.random()*wordArray.length);
-		return wordArray[index];
+		if(giveIndex==true) return index;
+		else return wordArray[index];
 	}
 	throw new Error('no words in this array');
 }
