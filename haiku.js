@@ -25,7 +25,7 @@ function runTextHaiku(file) {
 	}
 	var words = data.toString().match(/(\b\w+\b)/g);
 	var startIndex = randomWord(words, true);
-	//var pattern = randomPatternGenerator();
+	
 	
   });
 }
@@ -72,7 +72,7 @@ function countSyllables(syllables) {
 function randomWord(wordArray, giveIndex) {
 	if(wordArray.length>0) {
 		var index = Math.floor(Math.random()*wordArray.length);
-		if(giveIndex==true) return index;
+		if(giveIndex===true) return index;
 		else return wordArray[index];
 	}
 	throw new Error('no words in this array');
