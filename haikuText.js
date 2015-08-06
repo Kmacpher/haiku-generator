@@ -1,7 +1,5 @@
 var fs = require("fs");
-// open the cmu dictionary file for "reading" (the little r)
-// cmudict_file = File.open('cmudict.txt', 'r')
-//runDictHaiku();
+
 runTextHaiku('./Dorian-Grey.txt');
 
 
@@ -12,19 +10,47 @@ function runTextHaiku(file) {
 		return console.error(err.message);
 	}
 	var words = data.toString().match(/(\b\w+\b)/g);
-	var startIndex = randomWord(words, true);
+	
 	fs.readFile('cmudict.txt', function(err, data) {
         if(err) {
           return console.log(err);
         }
         var lines = data.toString().split("\n");
         var dictObj = parseDict(lines);
-        var startWord = words[startIndex].toUpperCase();
-        console.log(dictObj[startWord]);
+
+        makeHaiku(dictObj, words);
         
 	});
   });
 }
+
+
+function makeHaiku(dictObj, words) {
+	var sylls = [5,7,5];
+	var haiku = "";
+
+	function matchHaiku(startIndex) {
+		for (var x=0; x<3; x++) {
+			var sylGoal = sylls[x];
+			while(sylGoal>0) {
+				var word = words[startIndex++].toUpperCase();
+				var count = dictObj[word];
+				haiku += word+' ';
+				sylGoal -= count;
+			}
+			if (sylGoal < 0) {
+				haiku = "";
+				return matchHaiku(randomWord(words, true));
+			}
+			else haiku += '\n';
+		}
+		return haiku;
+	}
+
+	console.log(matchHaiku(randomWord(words, true)));
+
+}
+
 
 function randomWord(wordArray, giveIndex) {
 	if(wordArray.length>0) {
