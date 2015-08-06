@@ -25,8 +25,8 @@ function runTextHaiku(file) {
 	}
 	var words = data.toString().match(/(\b\w+\b)/g);
 	var startIndex = randomWord(words, true);
-	var pattern = randomPatternGenerator();
-	console.log(pattern);
+	//var pattern = randomPatternGenerator();
+	
   });
 }
 
